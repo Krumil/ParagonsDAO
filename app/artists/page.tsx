@@ -80,7 +80,7 @@ const Artists = () => {
 	}, [fetchMore, data?.artists?.length, searchTerm, loadingMore, loadingMoreDisabled]);
 
 	return (
-		<div className='max-w-7xl m-auto min-h-full'>
+		<div className='max-w-7xl m-auto min-h-full p-4 md:p-0'>
 			<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			<div className='grid grid-cols-1 md:grid-cols-4 gap-3 py-2'>
 				{data?.artists?.map(artist => (

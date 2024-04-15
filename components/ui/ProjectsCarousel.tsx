@@ -22,26 +22,31 @@ const ProjectsCarousel: FC<{ projects: Projects }> = ({ projects }) => {
 	}, [searchTerm, projects]);
 
 	return (
-		<div className='flex flex-col grow'>
+		<div className='flex flex-col mx-4'>
 			<h2 className='text-3xl font-bold mb-4'>Projects</h2>
 			<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			<Carousel
 				opts={{
 					align: "start"
 				}}
-				className='w-full max-w-screen-xl mx-10'>
+				className='w-full max-w-screen  hidden md:block'>
 				<CarouselContent>
-					{filteredProjects.map((project, index) => (
-						<CarouselItem key={project.id} className='md:basis-1/2 lg:basis-1/4'>
+					{filteredProjects.map(project => (
+						<CarouselItem key={project.id} className='md:basis-1/4 basis-1/1'>
 							<div className='p-1'>
 								<ProjectCard project={project} />
 							</div>
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				{filteredProjects.length > 0 && <CarouselPrevious />}
-				{filteredProjects.length > 0 && <CarouselNext />}
 			</Carousel>
+			<div className='md:hidden mb-4'>
+				{filteredProjects.map(project => (
+					<div key={project.id} className='p-1 '>
+						<ProjectCard project={project} />
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };

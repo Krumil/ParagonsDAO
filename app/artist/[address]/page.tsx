@@ -23,9 +23,9 @@ export default function ArtistPage() {
 	return (
 		<div className='relative'>
 			<div className='absolute top-0 h-30v w-full overflow-hidden rounded-t-3xl'>
-				<Image src={profile_picture} alt='' fill={true} objectFit='cover' />
+				<Image src={profile_picture} alt='' fill style={{ objectFit: "cover" }} />
 			</div>
-			<div className='relative z-10 flex justify-center md:justify-start w-full'>
+			<div className='relative z-10 flex justify-center md:justify-start'>
 				<div className='hidden md:block'>
 					{artist && <ProfileSidebar artist={artist} className='mt-10 ml-10' />}
 				</div>

@@ -30,7 +30,7 @@ interface Stats {
 
 const StatsDisplay: FC<{ stats: Stats }> = ({ stats }) => {
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+		<div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
 			<StatCard title='Total Volume' value={stats.total.volume} unit='ETH' />
 			<StatCard title='Total Sales' value={stats.total.sales} unit='' />
 			<StatCard title='Average Price' value={stats.total.average_price} unit='ETH' />

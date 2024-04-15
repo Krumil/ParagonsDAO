@@ -25,6 +25,12 @@ const nextConfig = {
 				hostname: "bright-moments-mainnet.s3.amazonaws.com",
 				port: "",
 				pathname: "/**"
+			},
+			{
+				protocol: "https",
+				hostname: "picsum.photos",
+				port: "",
+				pathname: "/**"
 			}
 		]
 	}

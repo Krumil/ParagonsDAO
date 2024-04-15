@@ -9,13 +9,11 @@ import type { GetArtistByAddressQuery } from "@/src/__generated__/graphql";
 type Project = GetArtistByAddressQuery["artists"][0]["projects"][0];
 
 const ProjectCard: FC<{ project: Project }> = ({ project }) => {
-	const background = project.featured_token
-		? project.featured_token[0].media_url
-		: "https://random.imagecdn.app/300/400";
-
+	const background = project.featured_token?.[0].media_url;
 	const shortDescription =
 		project.description?.substring(0, 150) +
 		(project.description && project.description?.length > 150 ? "..." : "");
+
 	return (
 		<Link href={`/project/${project.id}`}>
 			<Card className='h-[400px] mt-5 cursor-pointer relative overflow-hidden'>

@@ -38,7 +38,7 @@ const ArtistCard: FC<ArtistCardProps> = ({ artist, followedArtists, toggleFollow
 										<AvatarImage
 											src={
 												artist.user?.profile?.profile_picture?.url ??
-												"https://api.dicebear.com/8.x/notionists-neutral/svg"
+												"https://picsum.photos/200/200"
 											}
 										/>
 									</Avatar>

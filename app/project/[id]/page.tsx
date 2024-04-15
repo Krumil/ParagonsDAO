@@ -135,14 +135,14 @@ export default function ProjectPage() {
 			{/* <div className='absolute top-0 h-30v w-full overflow-hidden rounded-t-3xl'>
 				<Image src={bannerPicture} alt='' fill objectFit='cover' />
 			</div> */}
-			<div className='rounded-t-3xl p-5 flex justify-between'>
+			<div className='rounded-t-3xl p-5 flex flex-col md:flex-row justify-between '>
 				<div>
 					<h1 className='text-6xl font-bold mb-6'>{projectMetadata.name}</h1>
 					<p className='max-w-screen-md'>{projectMetadata.description}</p>
 				</div>
-				<div>{stats && <StatsDisplay stats={stats} />}</div>
+				<div className='mt-6'>{stats && <StatsDisplay stats={stats} />}</div>
 			</div>
-			<div className='grid grid-cols-2 gap-5 p-5 md:grid-cols-6'>
+			<div className='grid grid-cols-2 gap-5 px-5 md:grid-cols-6'>
 				{tokens.map(token => (
 					<TokenCard key={token.image?.url} token={token} />
 				))}
