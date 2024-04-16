@@ -26,8 +26,8 @@ export default async function Home() {
 			</div>
 			<div className='overflow-hidden my-3'>
 				<div className='translate-y-full animate-delayed-slide-up text-2xl'>
-					With over <span className='font-bold'>{artistCount}</span> artist, this is surely the best Art
-					Blocks explorer out there!
+					With <span className='font-bold'>{artistCount}</span> artist, this is surely the best Art Blocks
+					explorer out there!
 				</div>
 			</div>
 			<Link href='/artists' className={`opacity-0 animate-fade-in ${buttonVariants({ variant: "outline" })}`}>

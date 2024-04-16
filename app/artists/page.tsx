@@ -6,6 +6,20 @@ import { GET_ARTISTS_WITH_DETAILS } from "@/app/queries";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { ArtistCard } from "@/components/ui/ArtistCard";
 import { Spinner } from "@/components/ui/Spinner";
+import { motion, AnimatePresence } from "framer-motion";
+
+const cardVariants = {
+	initial: { opacity: 0, y: 50 },
+	animate: (index: number) => ({
+		opacity: 1,
+		y: 0,
+		transition: {
+			delay: index * 0.1,
+			duration: 0.3
+		}
+	}),
+	exit: { opacity: 0, y: 50 }
+};
 
 const Artists = () => {
 	const [followedArtists, setFollowedArtists] = useState<string[]>([]);
@@ -80,18 +94,32 @@ const Artists = () => {
 	}, [fetchMore, data?.artists?.length, searchTerm, loadingMore, loadingMoreDisabled]);
 
 	return (
-		<div className='max-w-7xl m-auto min-h-full p-4 md:p-0'>
-			<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-			<div className='grid grid-cols-1 md:grid-cols-4 gap-3 py-2'>
-				{data?.artists?.map(artist => (
-					<ArtistCard
-						key={artist.user?.public_address}
-						artist={artist}
-						followedArtists={followedArtists}
-						toggleFollow={toggleFollow}
-					/>
-				))}
+		<div className='m-auto min-h-full p-4'>
+			<div className='mb-4 grid grid-cols-1 md:grid-cols-2'>
+				<h1 className='text-3xl font-bold'>Discover Artists</h1>
+				<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>
+			<AnimatePresence>
+				<div className='grid grid-cols-1 md:grid-cols-6 gap-4 pb-4'>
+					{data?.artists?.map((artist, index) => (
+						<motion.div
+							key={artist.user?.public_address}
+							variants={cardVariants}
+							initial='initial'
+							animate='animate'
+							custom={index}
+							exit='exit'
+							layout>
+							<ArtistCard
+								key={artist.user?.public_address}
+								artist={artist}
+								followedArtists={followedArtists}
+								toggleFollow={toggleFollow}
+							/>
+						</motion.div>
+					))}
+				</div>
+			</AnimatePresence>
 			<div ref={observerRef} className='h-1 w-full'></div>
 			<div className='my-4'>{loadingMore && <Spinner />}</div>
 		</div>

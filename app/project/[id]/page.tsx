@@ -7,7 +7,6 @@ import { TokenCard } from "@/components/ui/TokenCard";
 import { useEffect, useState, useRef } from "react";
 import { Spinner } from "@/components/ui/Spinner";
 import { StatsDisplay } from "@/components/ui/StatsDisplay";
-import Image from "next/image";
 
 interface TotalStats {
 	volume: number;
@@ -45,7 +44,6 @@ export default function ProjectPage() {
 		variables: { id: params.id }
 	});
 	const projectMetadata = colletionData?.projects_metadata?.[0];
-	const bannerPicture = projectMetadata.featured_token?.[0]?.media_url || "https://random.imagecdn.app/1024/300";
 	const collectionName = colletionData?.projects_metadata?.[0]?.name;
 	const artistName = colletionData?.projects_metadata?.[0]?.artist_name;
 
@@ -112,7 +110,10 @@ export default function ProjectPage() {
 							return fetchMoreResult
 								? {
 										...prev,
-										tokens: [...(prev.tokens_metadata || []), ...fetchMoreResult.tokens_metadata]
+										tokens_metadata: [
+											...(prev.tokens_metadata || []),
+											...fetchMoreResult.tokens_metadata
+										]
 								  }
 								: prev;
 						}
@@ -132,15 +133,14 @@ export default function ProjectPage() {
 
 	return (
 		<div className='relative'>
-			{/* <div className='absolute top-0 h-30v w-full overflow-hidden rounded-t-3xl'>
-				<Image src={bannerPicture} alt='' fill objectFit='cover' />
-			</div> */}
-			<div className='rounded-t-3xl p-5 flex flex-col md:flex-row justify-between '>
-				<div>
-					<h1 className='text-6xl font-bold mb-6'>{projectMetadata.name}</h1>
-					<p className='max-w-screen-md'>{projectMetadata.description}</p>
+			<div className='rounded-t-3xl p-5 justify-between '>
+				<h1 className='text-6xl font-bold mb-6'>{projectMetadata.name}</h1>
+				<div className='mt-6 grid grid-cols-12 gap-5'>
+					<div className='col-span-12 md:col-span-8'>{projectMetadata.description}</div>
+					<div className='col-span-12 md:col-span-4 md:justify-self-end md:align-self-end'>
+						{stats && <StatsDisplay stats={stats} />}
+					</div>
 				</div>
-				<div className='mt-6'>{stats && <StatsDisplay stats={stats} />}</div>
 			</div>
 			<div className='grid grid-cols-2 gap-5 px-5 md:grid-cols-6'>
 				{tokens.map(token => (

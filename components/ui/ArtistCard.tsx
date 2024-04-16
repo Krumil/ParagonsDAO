@@ -27,14 +27,14 @@ const ArtistCard: FC<ArtistCardProps> = ({ artist, followedArtists, toggleFollow
 		artist && (
 			<div className='w-full'>
 				<Link href='/artist/[address]' as={`/artist/${public_address}`}>
-					<Card className='cursor-pointer flex flex-col h-[600px]'>
+					<Card className='cursor-pointer flex flex-col h-[550px] group'>
 						<CardHeader>
 							<CardTitle>{artist.user?.display_name}</CardTitle>
 						</CardHeader>
 						<CardContent className='grow'>
 							<div className='flex flex-col items-center justify-between h-full'>
 								<div>
-									<Avatar className='w-[200px] h-[200px] m-5'>
+									<Avatar className='w-[200px] h-[200px] m-5 transition-all duration-300 ease-in-out group-hover:scale-110'>
 										<AvatarImage
 											src={
 												artist.user?.profile?.profile_picture?.url ??
@@ -56,7 +56,9 @@ const ArtistCard: FC<ArtistCardProps> = ({ artist, followedArtists, toggleFollow
 								</CardDescription>
 
 								{public_address && (
-									<Button className='m-3' onClick={handleFollow}>
+									<Button
+										className='m-3 shadow-md hover:shadow-lg hover:bg-foreground hover:text-background transition duration-300 ease-in-out'
+										onClick={handleFollow}>
 										{followedArtists.includes(public_address) ? "Following" : "Follow +"}
 									</Button>
 								)}

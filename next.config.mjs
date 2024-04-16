@@ -28,6 +28,18 @@ const nextConfig = {
 			},
 			{
 				protocol: "https",
+				hostname: "bright-moments-flex-mainnet.s3.amazonaws.com",
+				port: "",
+				pathname: "/**"
+			},
+			{
+				protocol: "https",
+				hostname: "art-blocks-x-pace-mainnet.s3.amazonaws.com",
+				port: "",
+				pathname: "/**"
+			},
+			{
+				protocol: "https",
 				hostname: "picsum.photos",
 				port: "",
 				pathname: "/**"

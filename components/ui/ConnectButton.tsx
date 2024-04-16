@@ -86,9 +86,15 @@ const ConnectButton: FC = () => {
 			const receipt = await burnTx.wait();
 			console.log("Transaction mined:", receipt);
 			if (receipt.status === 1) {
-				console.log("Burn successful");
+				toast({
+					title: "Transaction successful",
+					message: "Burned tokens successfully with transaction hash: " + burnTx.hash
+				});
 			} else {
-				console.error("Burn failed: Transaction failed");
+				toast({
+					title: "Transaction failed",
+					message: "Something went wrong while burning tokens. Please try again."
+				});
 			}
 		} catch (error) {
 			console.error("Error burning tokens:", error);
@@ -98,12 +104,12 @@ const ConnectButton: FC = () => {
 	return (
 		<div className='flex'>
 			<Button className='mr-4' onClick={() => open()}>
-				{isConnected ? displayAddress : "Connect"}
+				{displayAddress}
 			</Button>
 
 			{isConnected && (
 				<Dialog>
-					<DialogTrigger>
+					<DialogTrigger asChild>
 						<Button>Actions</Button>
 					</DialogTrigger>
 					<DialogContent className='w-[300px] rounded-xl'>

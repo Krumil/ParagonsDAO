@@ -8,15 +8,15 @@ import type { GetCollectionTokensQuery } from "@/src/__generated__/graphql";
 type Token = GetCollectionTokensQuery["tokens_metadata"][0];
 
 const TokenCard: FC<{ token: Token }> = ({ token }) => {
-	const background = token.image?.url;
+	const imageUrl = token.gif?.url || token.image?.url; // Prefer GIF, fallback to static image
 
 	return (
 		<Card className='h-[250px] md:h-[400px] mt-5 relative overflow-hidden'>
 			<div className='relative z-1 h-full flex flex-col justify-between'>
 				<CardContent>
-					{background && (
+					{imageUrl && (
 						<Image
-							src={background}
+							src={imageUrl}
 							quality={100}
 							alt={token.id}
 							fill
@@ -26,7 +26,6 @@ const TokenCard: FC<{ token: Token }> = ({ token }) => {
 							}}
 						/>
 					)}
-					<CardDescription className='text-white h-full'>{token.id}</CardDescription>
 				</CardContent>
 			</div>
 		</Card>

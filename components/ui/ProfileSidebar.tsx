@@ -18,12 +18,7 @@ const ProfileSidebar: FC<{ artist: Artist; className?: string }> = ({ artist, cl
 			<Card className={`w-[300px] h-[700px] flex flex-col text-center ${className}`}>
 				<CardHeader className='flex flex-col items-center justify-between'>
 					<Avatar className='w-[200px] h-[200px] m-3'>
-						<AvatarImage
-							src={
-								artist.profile?.profile_picture?.url ??
-								"https://api.dicebear.com/8.x/notionists-neutral/svg"
-							}
-						/>
+						<AvatarImage src={artist.profile?.profile_picture?.url ?? "https://picsum.photos/200/200"} />
 					</Avatar>
 				</CardHeader>
 				<CardContent className='flex flex-col items-center grow'>
