@@ -7,6 +7,7 @@ import { TokenCard } from "@/components/ui/TokenCard";
 import { useEffect, useState, useRef } from "react";
 import { Spinner } from "@/components/ui/Spinner";
 import { StatsDisplay } from "@/components/ui/StatsDisplay";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface TotalStats {
 	volume: number;
@@ -51,7 +52,7 @@ export default function ProjectPage() {
 		variables: {
 			project_id: params.id,
 			offset: 0,
-			limit: 12
+			limit: 6
 		}
 	});
 
@@ -97,7 +98,7 @@ export default function ProjectPage() {
 					setLoadingMore(true);
 					fetchMore({
 						variables: {
-							limit: 12,
+							limit: 6,
 							offset: tokens.length || 0
 						},
 						updateQuery: (prev, { fetchMoreResult }) => {
@@ -136,7 +137,19 @@ export default function ProjectPage() {
 			<div className='rounded-t-3xl p-5 justify-between '>
 				<h1 className='text-6xl font-bold mb-6'>{projectMetadata.name}</h1>
 				<div className='mt-6 grid grid-cols-12 gap-5'>
-					<div className='col-span-12 md:col-span-8'>{projectMetadata.description}</div>
+					{projectMetadata.description && (
+						<Accordion type='single' collapsible className='col-span-12 md:hidden'>
+							<AccordionItem value='item-1'>
+								<AccordionTrigger>Description</AccordionTrigger>
+								<AccordionContent>{projectMetadata.description}</AccordionContent>
+							</AccordionItem>
+						</Accordion>
+					)}
+
+					{projectMetadata.description && (
+						<div className='hidden md:block md:col-span-8 '>{projectMetadata.description}</div>
+					)}
+
 					<div className='col-span-12 md:col-span-4 md:justify-self-end md:align-self-end'>
 						{stats && <StatsDisplay stats={stats} />}
 					</div>

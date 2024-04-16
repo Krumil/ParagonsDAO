@@ -16,7 +16,6 @@ const Toast: FC<ToastProps> = ({ title, message, duration = 3000 }) => {
 	useEffect(() => {
 		if (message) {
 			setVisible(true);
-			// search for a link in the message and wrap it in an anchor tag
 			const link = message.match(/https?:\/\/[^\s]+/);
 			if (link) {
 				const [start] = link;
