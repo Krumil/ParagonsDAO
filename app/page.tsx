@@ -14,7 +14,7 @@ export default async function Home() {
 	const artistCount = data.artists_aggregate?.aggregate?.count;
 	return (
 		<div
-			className='flex flex-col justify-center items-center w-full h-[calc(100svh-74px)]'
+			className='flex flex-col justify-center items-center w-full h-[calc(100svh-74px)] px-4 text-center'
 			style={{
 				backgroundImage:
 					"linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url('/images/background.png')",
@@ -25,7 +25,7 @@ export default async function Home() {
 				<h1 className='translate-y-full text-4xl font-bold animate-slide-up'>Welcome to Art Blocks Explorer</h1>
 			</div>
 			<div className='overflow-hidden my-3'>
-				<div className='translate-y-full animate-delayed-slide-up text-2xl'>
+				<div className='translate-y-full animate-delayed-slide-up text-2xl '>
 					With <span className='font-bold'>{artistCount}</span> artist, this is surely the best Art Blocks
 					explorer out there!
 				</div>
