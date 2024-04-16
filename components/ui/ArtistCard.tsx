@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { Avatar, AvatarImage } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { FC, MouseEvent } from "react";
 
 import type { GetArtistsWithDetailsQuery } from "@/src/__generated__/graphql";
@@ -27,44 +26,36 @@ const ArtistCard: FC<ArtistCardProps> = ({ artist, followedArtists, toggleFollow
 		artist && (
 			<div className='w-full'>
 				<Link href='/artist/[address]' as={`/artist/${public_address}`}>
-					<Card className='cursor-pointer flex flex-col h-[550px] group'>
-						<CardHeader>
-							<CardTitle>{artist.user?.display_name}</CardTitle>
-						</CardHeader>
-						<CardContent className='grow'>
-							<div className='flex flex-col items-center justify-between h-full'>
-								<div>
-									<Avatar className='w-[200px] h-[200px] m-5 transition-all duration-300 ease-in-out group-hover:scale-110'>
-										<AvatarImage
-											src={
-												artist.user?.profile?.profile_picture?.url ??
-												"https://picsum.photos/200/200"
-											}
-										/>
-									</Avatar>
-									<div className='text-4xl flex justify-center items-center'>
-										{artist.projects_aggregate.aggregate?.count}
-										<Image src='/images/collection.png' width={60} height={40} alt='Collections' />
-									</div>
+					<div className='cursor-pointer flex flex-col h-[400px]  group flex flex-col items-center'>
+						<Avatar className='w-[150px] h-[150px] md:w-[200px] md:h-[200px] m-5 transition-all duration-300 ease-in-out group-hover:scale-110'>
+							<AvatarImage
+								src={artist.user?.profile?.profile_picture?.url ?? "https://picsum.photos/200/200"}
+							/>
+						</Avatar>
+						<div className='text-center'>{artist.user?.display_name}</div>
+						<div className='flex flex-col items-center justify-between h-full'>
+							{public_address && (
+								<Button
+									className='m-3 shadow-md hover:shadow-lg hover:bg-foreground hover:text-background transition duration-300 ease-in-out'
+									onClick={handleFollow}>
+									{followedArtists.includes(public_address) ? "Following" : "Follow +"}
+								</Button>
+							)}
+							{/* <div>
+								<div className='text-4xl flex justify-center items-center'>
+									{artist.projects_aggregate.aggregate?.count}
+									<Image src='/images/collection.png' width={60} height={40} alt='Collections' />
 								</div>
-								<CardDescription>
-									{artist.user?.profile?.bio
-										? `${artist.user.profile.bio.substring(0, 150)}${
-												artist.user.profile.bio.length > 150 ? "..." : ""
-										  }`
-										: ""}
-								</CardDescription>
-
-								{public_address && (
-									<Button
-										className='m-3 shadow-md hover:shadow-lg hover:bg-foreground hover:text-background transition duration-300 ease-in-out'
-										onClick={handleFollow}>
-										{followedArtists.includes(public_address) ? "Following" : "Follow +"}
-									</Button>
-								)}
+							</div> */}
+							<div className='grow text-center'>
+								{artist.user?.profile?.bio
+									? `${artist.user.profile.bio.substring(0, 100)}${
+											artist.user.profile.bio.length > 100 ? "..." : ""
+									  }`
+									: ""}
 							</div>
-						</CardContent>
-					</Card>
+						</div>
+					</div>
 				</Link>
 			</div>
 		)

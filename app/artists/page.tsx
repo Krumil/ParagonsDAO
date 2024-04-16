@@ -96,11 +96,11 @@ const Artists = () => {
 	return (
 		<div className='m-auto min-h-full p-4'>
 			<div className='mb-4 grid grid-cols-1 md:grid-cols-2'>
-				<h1 className='text-3xl font-bold'>Discover Artists</h1>
+				<h1 className='text-3xl font-bold mb-4 md:mb-0'>Discover Artists</h1>
 				<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			</div>
 			<AnimatePresence>
-				<div className='grid grid-cols-1 md:grid-cols-6 gap-4 pb-4'>
+				<div className='grid grid-cols-2 md:grid-cols-6 gap-4 pb-4'>
 					{data?.artists?.map((artist, index) => (
 						<motion.div
 							key={artist.user?.public_address}

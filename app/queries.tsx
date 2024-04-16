@@ -44,6 +44,11 @@ export const GET_ARTIST_BY_ADDRESS = gql(`
 		artists (
 			where: { public_address: { _eq: $address } }
 		) {
+			projects_aggregate {
+				aggregate {
+					count
+				}
+			}
 			user {
 				display_name
 				public_address

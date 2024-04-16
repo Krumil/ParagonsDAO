@@ -7,8 +7,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 import type { GetArtistByAddressQuery } from "@/src/__generated__/graphql";
 type Projects = GetArtistByAddressQuery["artists"][0]["projects"];
+type ProjectsCount = number | undefined;
 
-const ProjectsCarousel: FC<{ projects: Projects }> = ({ projects }) => {
+const ProjectsCarousel: FC<{ projects: Projects; projectsCount: ProjectsCount }> = ({ projects, projectsCount }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredProjects, setFilteredProjects] = useState<Projects>(projects);
 
@@ -23,7 +24,7 @@ const ProjectsCarousel: FC<{ projects: Projects }> = ({ projects }) => {
 
 	return (
 		<div className='flex flex-col mx-4'>
-			<h2 className='text-3xl font-bold mb-4'>Projects</h2>
+			<h2 className='text-3xl font-bold mb-4'>Projects ({projectsCount})</h2>
 			<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			<Carousel
 				opts={{
