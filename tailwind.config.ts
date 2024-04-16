@@ -65,6 +65,9 @@ const config = {
 				"90v": "90vh",
 				"100v": "100vh"
 			},
+			zIndex: {
+				"100": "100"
+			},
 			keyframes: {
 				"accordion-down": {
 					from: { height: "0" },

@@ -20,13 +20,13 @@ const ConnectButton: FC = () => {
 	const [toastVisible, setToastVisible] = useState(false);
 	const [toastProps, setToastProps] = useState({
 		title: "",
-		message: ""
+		message: "",
+		duration: 3000
 	});
 
-	const toast = ({ title, message, duration = 3000 }: { title: string; message: string; duration?: number }) => {
+	const toast = ({ title, message, duration }: { title: string; message: string; duration: number }) => {
 		setToastVisible(true);
-		setToastProps({ title, message });
-		setTimeout(() => setToastVisible(false), duration);
+		setToastProps({ title, message, duration });
 	};
 
 	useEffect(() => {
@@ -53,22 +53,32 @@ const ConnectButton: FC = () => {
 		const formattedAmount = ethers.utils.parseEther(amount.toString());
 		try {
 			const mintTx = await contract.mint(address, formattedAmount);
+			const link = `https://sepolia.etherscan.io/tx/${mintTx.hash}`;
+
 			toast({
 				title: "Transaction submitted",
-				message: "Minting tokens with transaction hash: " + mintTx.hash
+				message: "See your transaction " + link,
+				duration: 100000
 			});
-
 			const receipt = await mintTx.wait();
 			if (receipt.status === 1) {
-				toast({
-					title: "Transaction successful",
-					message: "Minted tokens successfully with transaction hash: " + mintTx.hash
-				});
+				setToastVisible(false);
+				setTimeout(() => {
+					toast({
+						title: "Transaction successful",
+						message: "See your transaction " + link,
+						duration: 5000
+					});
+				}, 1000);
 			} else {
-				toast({
-					title: "Transaction failed",
-					message: "Something went wrong while minting tokens. Please try again."
-				});
+				setToastVisible(false);
+				setTimeout(() => {
+					toast({
+						title: "Transaction failed",
+						message: "Something went wrong while minting tokens. Please try again.",
+						duration: 5000
+					});
+				}, 1000);
 			}
 		} catch (error) {
 			console.error("Error minting tokens:", error);
@@ -82,18 +92,28 @@ const ConnectButton: FC = () => {
 		const formattedAmount = ethers.utils.parseEther(amount.toString());
 		try {
 			const burnTx = await contract.burn(address, formattedAmount);
+			const link = `https://sepolia.etherscan.io/tx/${burnTx.hash}`;
 			console.log("Transaction submitted:", burnTx.hash);
+
+			toast({
+				title: "Transaction submitted",
+				message: "See your transaction " + link,
+				duration: 100000
+			});
+
 			const receipt = await burnTx.wait();
 			console.log("Transaction mined:", receipt);
 			if (receipt.status === 1) {
 				toast({
 					title: "Transaction successful",
-					message: "Burned tokens successfully with transaction hash: " + burnTx.hash
+					message: "See your transaction " + link,
+					duration: 5000
 				});
 			} else {
 				toast({
 					title: "Transaction failed",
-					message: "Something went wrong while burning tokens. Please try again."
+					message: "Something went wrong while burning tokens. Please try again.",
+					duration: 5000
 				});
 			}
 		} catch (error) {
@@ -134,7 +154,9 @@ const ConnectButton: FC = () => {
 				</Dialog>
 			)}
 
-			{toastVisible && <Toast title={toastProps.title} message={toastProps.message} duration={3000} />}
+			{toastVisible && (
+				<Toast title={toastProps.title} message={toastProps.message} duration={toastProps.duration} />
+			)}
 		</div>
 	);
 };
